@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qaprosoft.carina.demo.api;
+package com.qaprosoft.carina.demo.api.products;
 
 import com.qaprosoft.carina.core.foundation.api.AbstractApiMethodV2;
 import com.qaprosoft.carina.core.foundation.api.annotation.Endpoint;
@@ -24,12 +24,14 @@ import com.qaprosoft.carina.core.foundation.api.http.HttpMethodType;
 import com.qaprosoft.carina.core.foundation.api.http.HttpResponseStatusType;
 import com.zebrunner.carina.utils.Configuration;
 
-@Endpoint(url = "${base_url}/products/1", methodType = HttpMethodType.DELETE)
-@ResponseTemplatePath(path = "api/restapiexample/_delete/rs.json")
+@Endpoint(url = "${base_url}/products/add", methodType = HttpMethodType.POST)
+@RequestTemplatePath(path = "api/restapiexample/_post/product/rq.json")
+@ResponseTemplatePath(path = "api/restapiexample/_post/product/rs.json")
 @SuccessfulHttpStatus(status = HttpResponseStatusType.OK_200)
-public class DeleteUserMethod extends AbstractApiMethodV2 {
+public class PostProductMethod extends AbstractApiMethodV2 {
 
-    public DeleteUserMethod() {
+    public PostProductMethod() {
+        //super("api/users/_post/rqDummy.json", "api/users/_post/rsDummy.json", "api/users/user.properties");
         replaceUrlPlaceholder("base_url", Configuration.getEnvArg("api_url"));
     }
 }

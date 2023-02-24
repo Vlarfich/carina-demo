@@ -21,9 +21,9 @@ import com.qaprosoft.carina.core.foundation.api.APIMethodPoller;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import com.zebrunner.carina.core.registrar.tag.Priority;
 import com.zebrunner.carina.core.registrar.tag.TestPriority;
-import com.qaprosoft.carina.demo.api.DeleteUserMethod;
-import com.qaprosoft.carina.demo.api.GetUserMethods;
-import com.qaprosoft.carina.demo.api.PostUserMethod;
+import com.qaprosoft.carina.demo.api.products.DeleteProductMethod;
+import com.qaprosoft.carina.demo.api.products.GetProductsMethod;
+import com.qaprosoft.carina.demo.api.products.PostProductMethod;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class APISampleTest implements IAbstractTest {
     public void testCreateUser() throws Exception {
         LOGGER.info("test");
         setCases("4555,54545");
-        PostUserMethod api = new PostUserMethod();
+        PostProductMethod api = new PostProductMethod();
         api.setProperties("api/users/user.properties");
 
         AtomicInteger counter = new AtomicInteger(0);
@@ -65,7 +65,7 @@ public class APISampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testCreateUserMissingSomeFields() throws Exception {
-        PostUserMethod api = new PostUserMethod();
+        PostProductMethod api = new PostProductMethod();
         api.setProperties("api/users/user.properties");
         api.getProperties().remove("name");
         api.getProperties().remove("username");
@@ -76,7 +76,7 @@ public class APISampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testGetUsers() {
-        GetUserMethods getUsersMethods = new GetUserMethods();
+        GetProductsMethod getUsersMethods = new GetProductsMethod();
         getUsersMethods.callAPIExpectSuccess();
         getUsersMethods.validateResponse(JSONCompareMode.STRICT, JsonCompareKeywords.ARRAY_CONTAINS.getKey());
         getUsersMethods.validateResponseAgainstSchema("api/users/_get/rs.schema");
@@ -86,9 +86,9 @@ public class APISampleTest implements IAbstractTest {
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P1)
     public void testDeleteUsers() {
-        DeleteUserMethod deleteUserMethod = new DeleteUserMethod();
-        deleteUserMethod.setProperties("api/users/user.properties");
-        deleteUserMethod.callAPIExpectSuccess();
-        deleteUserMethod.validateResponse();
+        DeleteProductMethod deleteProductMethod = new DeleteProductMethod();
+        deleteProductMethod.setProperties("api/users/user.properties");
+        deleteProductMethod.callAPIExpectSuccess();
+        deleteProductMethod.validateResponse();
     }
 }
