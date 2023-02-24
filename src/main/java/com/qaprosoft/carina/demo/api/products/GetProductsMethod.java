@@ -13,25 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qaprosoft.carina.demo.api;
+package com.qaprosoft.carina.demo.api.products;
 
 import com.qaprosoft.carina.core.foundation.api.AbstractApiMethodV2;
 import com.qaprosoft.carina.core.foundation.api.annotation.Endpoint;
-import com.qaprosoft.carina.core.foundation.api.annotation.RequestTemplatePath;
 import com.qaprosoft.carina.core.foundation.api.annotation.ResponseTemplatePath;
 import com.qaprosoft.carina.core.foundation.api.annotation.SuccessfulHttpStatus;
 import com.qaprosoft.carina.core.foundation.api.http.HttpMethodType;
 import com.qaprosoft.carina.core.foundation.api.http.HttpResponseStatusType;
 import com.zebrunner.carina.utils.Configuration;
 
-@Endpoint(url = "${base_url}/products/add", methodType = HttpMethodType.POST)
-@RequestTemplatePath(path = "api/restapiexample/_post/rq.json")
-@ResponseTemplatePath(path = "api/restapiexample/_post/rs.json")
-@SuccessfulHttpStatus(status = HttpResponseStatusType.CREATED_201)
-public class PostUserMethod extends AbstractApiMethodV2 {
+@Endpoint(url = "${base_url}/products", methodType = HttpMethodType.GET)
+@ResponseTemplatePath(path = "api/restapiexample/_get/rs.json")
+@SuccessfulHttpStatus(status = HttpResponseStatusType.OK_200)
+public class GetProductsMethod extends AbstractApiMethodV2 {
 
-    public PostUserMethod() {
-        //super("api/users/_post/rqDummy.json", "api/users/_post/rsDummy.json", "api/users/user.properties");
+    public GetProductsMethod() {
         replaceUrlPlaceholder("base_url", Configuration.getEnvArg("api_url"));
     }
 }
