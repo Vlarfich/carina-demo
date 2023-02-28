@@ -1,20 +1,8 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite verbose="1" name="Carina Demo Tests - Sauce Demo " parallel="tests" thread-count="2">
+<suite verbose="1" name="Carina Demo Tests - Sauce Demo " parallel="methods" thread-count="3">
     <test name="Web tests">
         <classes>
             <class name="com.qaprosoft.carina.demo.MyWebTest">
-                <methods>
-                    <include name="testCart"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Web tests 2">
-        <classes>
-            <class name="com.qaprosoft.carina.demo.MyWebTest">
-                <methods>
-                    <include name="testOrder"/>
-                </methods>
             </class>
         </classes>
     </test>

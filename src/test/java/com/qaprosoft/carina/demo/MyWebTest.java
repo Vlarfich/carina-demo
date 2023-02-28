@@ -102,15 +102,17 @@ public class MyWebTest implements IAbstractTest {
 
     @Test
     public void testCartWithLogout() {
+        String productName = "Sauce Labs Fleece Jacket";
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         Inventory inventoryPage = homePage.login();
-
-        Product product = inventoryPage.selectModel("Sauce Labs Fleece Jacket");
-        product.addToCart();
-
-        Assert.assertEquals(inventoryPage.getNumberOfItems(), "1", "Items dont match");
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        Product productModel = inventoryPage.selectModel(productName);
+        productModel.addToCart();
+        Assert.assertTrue(productModel.isRemoveButtonDisplay(), "The item is not add to cart");
+        Assert.assertTrue(inventoryPage.isNumberOfItemsPresent(), "The cart is not fill in");
+        Assert.assertEquals(inventoryPage.getNumberOfItems(), "1", "Number of items is not valid");
         Menu menu = inventoryPage.openMenu();
         Assert.assertTrue(menu.isUIObjectPresent(), "Menu is not opened");
         menu.logout();
@@ -124,17 +126,17 @@ public class MyWebTest implements IAbstractTest {
     public void testProductFilter() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.isPageOpened(), "Login fail");
         Inventory inventoryPage = homePage.login();
-        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page fail");
         inventoryPage.changeFilterToLoHi();
-        Assert.assertTrue(inventoryPage.checkIfSortLoToHiCorrect(), "Models are not filter");
+        Assert.assertTrue(inventoryPage.checkIfSortLoToHiCorrect(), "Filter fail");
         inventoryPage.changeFilterToHiLo();
-        Assert.assertTrue(inventoryPage.checkIfSortHiToLoCorrect(), "Models are not filter");
+        Assert.assertTrue(inventoryPage.checkIfSortHiToLoCorrect(), "Filter fail");
         inventoryPage.changeFilterToAZ();
-        Assert.assertTrue(inventoryPage.checkIfSortAZCorrect(), "Models are not filter");
+        Assert.assertTrue(inventoryPage.checkIfSortAZCorrect(), "Filter fail");
         inventoryPage.changeFilterToZA();
-        Assert.assertTrue(inventoryPage.checkIfSortZACorrect(), "Models are not filter");
+        Assert.assertTrue(inventoryPage.checkIfSortZACorrect(), "Filter fail");
     }
 
 }

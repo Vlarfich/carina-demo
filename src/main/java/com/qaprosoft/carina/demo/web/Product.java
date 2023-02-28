@@ -15,19 +15,19 @@ public class Product extends AbstractUIObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private final static String REMOVE_BUTTON_XPATH = ".//button[contains(@id, 'remove')]";
 
-    @FindBy(xpath = ".//div[@class = 'inventory_item_name']")
+    @FindBy(xpath = "//div[@class = 'inventory_item_name']")
     private ExtendedWebElement productName;
 
-    @FindBy(xpath = ".//a[contains(@id, 'title_link')]")
+    @FindBy(xpath = "//a[contains(@id, 'title_link')]")
     private ExtendedWebElement productPageOpen;
 
-    @FindBy(xpath = ".//div[@class = 'inventory_item_desc']")
+    @FindBy(xpath = "//div[@class = 'inventory_item_desc']")
     private ExtendedWebElement productDescription;
 
-    @FindBy(xpath = ".//div[@class='inventory_item_price']")
+    @FindBy(xpath = "//div[@class='inventory_item_price']")
     private ExtendedWebElement productPrice;
 
-    @FindBy(xpath = ".//button[contains(@id, 'add-to-cart')]")
+    @FindBy(xpath = "//button[contains(@id, 'add-to-cart')]")
     private ExtendedWebElement addCart;
 
     public Product(WebDriver driver, SearchContext searchContext) {
