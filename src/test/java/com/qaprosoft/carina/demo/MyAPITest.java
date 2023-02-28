@@ -64,4 +64,8 @@ public class MyAPITest implements IAbstractTest {
         deleteUserMethod.validateResponse();
     }
 
+    public static void main(String[] args) {
+        LOGGER.info("HELLO WORLD");
+    }
+
 }
