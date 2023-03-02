@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.demo.web;
+package com.qaprosoft.carina.demo.web.saucedemo;
 
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
