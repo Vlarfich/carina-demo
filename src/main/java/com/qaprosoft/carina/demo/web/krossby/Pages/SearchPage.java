@@ -5,6 +5,7 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.PageOpeningStrat
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.krossby.Shoe;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Header;
+import com.qaprosoft.carina.demo.web.krossby.UIObjects.Navigation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -14,8 +15,15 @@ public class SearchPage extends AbstractPage {
 
     @FindBy(id = "top-links")
     private Header header;
+
+    @FindBy(id = "menu")
+    private Navigation navigation;
+
     @FindBy(id = "input-search")
-    private ExtendedWebElement inpurSearch;
+    private ExtendedWebElement inputSearch;
+
+    @FindBy(id = "button-search")
+    private ExtendedWebElement searchButton;
 
     //@FindBy(xpath = "//div[@class = 'caption']")
     @FindBy(xpath = "//div[@class = 'product-details']")
@@ -24,7 +32,8 @@ public class SearchPage extends AbstractPage {
     public SearchPage(WebDriver driver) {
         super(driver);
         setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
-        setRootExtendedElement(inpurSearch);
+        setRootExtendedElement(inputSearch);
+        setUiLoadedMarker(inputSearch);
     }
 
 
@@ -38,5 +47,19 @@ public class SearchPage extends AbstractPage {
 
     public LoginPage loginPage(){
         return header.login();
+    }
+
+    public void inputSearch(String search) {
+        inputSearch.type(search);
+    }
+
+    public SearchPage clickSearch(){
+        searchButton.click();
+        return new SearchPage(getDriver());
+    }
+
+    public SearchPage search(String str) {
+        inputSearch(str);
+        return clickSearch();
     }
 }

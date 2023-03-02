@@ -3,8 +3,10 @@ package com.qaprosoft.carina.demo.web.krossby.Pages;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Header;
+import com.qaprosoft.carina.demo.web.krossby.UIObjects.Navigation;
 import com.zebrunner.carina.utils.Configuration;
 import com.zebrunner.carina.utils.R;
+import org.apache.poi.ss.formula.functions.Na;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -19,7 +21,6 @@ public class HomePage extends AbstractPage {
     private ExtendedWebElement closePopUpButton;
 
 
-
     //@FindBy(xpath = "//a[contains(@href, 'https://kross.by/shoes/')]")
     @FindBy(xpath = "//span[contains(@data-hover, 'Каталог')]")
     private ExtendedWebElement catalog;
@@ -27,26 +28,37 @@ public class HomePage extends AbstractPage {
     @FindBy(id = "top-links")
     private Header header;
 
+    @FindBy(id = "menu")
+    private Navigation navigation;
+
+    public Header getHeader() {
+        return header;
+    }
+
     public HomePage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(catalog);
         setPageAbsoluteURL(R.TESTDATA.get(Configuration.Parameter.URL.getKey()));
     }
 
-    public void closePopUp(){
+    public void closePopUp() {
         closePopUpButton.click();
     }
 
-    public CatalogPage clickCatalog(){
+    public CatalogPage clickCatalog() {
         catalog.click();
         return new CatalogPage(getDriver());
     }
 
-    public SearchPage goToSearchPage(String str){
+    public SearchPage goToSearchPage(String str) {
         return header.goToSearchPage(str);
     }
 
-    public LoginPage loginPage(){
+    public LoginPage loginPage() {
         return header.login();
+    }
+
+    public SalesPage goToSalesPage() {
+        return navigation.goToSalesPage();
     }
 }

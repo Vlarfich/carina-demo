@@ -5,13 +5,12 @@ import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.krossby.Shoe;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Header;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Navigation;
-import com.zebrunner.carina.utils.R;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class CatalogPage extends AbstractPage {
+public class SalesPage extends AbstractPage {
 
     @FindBy(id = "top-links")
     private Header header;
@@ -25,24 +24,17 @@ public class CatalogPage extends AbstractPage {
     @FindBy(xpath = "//div[@class = 'caption']")
     private List<Shoe> shoes;
 
-    public CatalogPage(WebDriver driver) {
+    public SalesPage(WebDriver driver) {
         super(driver);
-        setPageAbsoluteURL(R.TESTDATA.get("catalogurl"));
-    }
-
-    public List<Shoe> getShoes() {
-        return shoes;
+        setPageAbsoluteURL("https://kross.by/specials/");
     }
 
     public void closePopUp() {
         closePopUpButton.click();
     }
 
-    public SearchPage goToSearchPage(String str){
-        return header.goToSearchPage(str);
+    public List<Shoe> getShoes() {
+        return shoes;
     }
 
-    public LoginPage loginPage(){
-        return header.login();
-    }
 }
