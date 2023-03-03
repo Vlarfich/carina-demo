@@ -104,11 +104,133 @@ public class MySecondWebTest implements IAbstractTest {
         Assert.assertFalse(CollectionUtils.isEmpty(searchedShoes), "No shoes found!");
 
         SoftAssert softAssert = new SoftAssert();
+
         for (Shoe shoe : searchedShoes) {
             LOGGER.info(shoe.getShoeModel());
             softAssert.assertTrue(StringUtils.containsIgnoreCase(shoe.getShoeModel(), shoeForSearch),
                     "Invalid search results for " + shoe.getShoeModel());
         }
+
         softAssert.assertAll();
     }
+
+
+    @Test
+    public void testCartWithoutChoosingSize() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
+        Shoe shoe = shoes.get(0);
+        CheckOutPage checkOutPage = shoe.buyNoSize();
+
+        Assert.assertFalse(checkOutPage.isPageOpened(5), "Checkout page opened even though we didn't choose the size!");
+    }
+
+    @Test
+    public void testValidCart() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
+        Shoe shoe = shoes.get(0);
+        CheckOutPage checkOutPage = shoe.buyWithSize();
+
+        Assert.assertTrue(checkOutPage.isPageOpened(), "Checkout page is not opened!");
+    }
+
+    @Test
+    public void testFilterMaxPrice() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        int maxPrice = R.TESTDATA.getInt("maxprice");
+        catalogPage.inputMaxPrice(maxPrice);
+
+        List<Shoe> shoes = catalogPage.getShoes();
+        for (Shoe shoe : shoes) {
+            Assert.assertTrue(shoe.getPrice() <= maxPrice, "Shoe price is not correct after filter!");
+        }
+    }
+
+
+    @Test
+    public void testFilterMinPrice() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        int minPrice = R.TESTDATA.getInt("minprice");
+        catalogPage.inputMinPrice(minPrice);
+
+        List<Shoe> shoes = catalogPage.getShoes();
+        for (Shoe shoe : shoes) {
+            Assert.assertTrue(shoe.getPrice() >= minPrice, "Shoe price is not correct after filter!");
+        }
+    }
+
+    @Test
+    public void testFilterMinMaxPrice() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        int minPrice = R.TESTDATA.getInt("minprice");
+        int maxPrice = R.TESTDATA.getInt("maxprice");
+        catalogPage.inputMinPrice(minPrice);
+        catalogPage.inputMaxPrice(maxPrice);
+
+        List<Shoe> shoes = catalogPage.getShoes();
+        for (Shoe shoe : shoes) {
+            int shoePrice = shoe.getPrice();
+            Assert.assertTrue(shoePrice >= minPrice && shoePrice <= maxPrice, "Shoe price is not correct after filter!");
+        }
+    }
+
+
+
 }
