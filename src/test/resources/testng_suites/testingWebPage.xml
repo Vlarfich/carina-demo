@@ -2,7 +2,20 @@
 <suite verbose="1" name="Carina Demo Tests - Sauce Demo " parallel="methods" thread-count="3">
     <test name="Web tests">
         <classes>
-            <class name="com.qaprosoft.carina.demo.MyWebTest">
+            <class name="com.qaprosoft.carina.demo.MySecondWebTest">
+                <methods>
+                    <include name="testCartWithoutChoosingSize"/>
+                    <include name="testCartWithSize"/>
+                    <include name="testFilterMaxPrice"/>
+                    <include name="testFilterMinMaxPrice"/>
+                    <include name="testFilterMinPrice"/>
+                    <include name="testQuickViewOpens"/>
+                    <include name="testRandomLogin"/>
+                    <include name="testSalesPage"/>
+                    <include name="testSearch"/>
+                    <include name="testSortingAZ"/>
+                    <include name="testValidLogin"/>
+                </methods>
             </class>
         </classes>
     </test>

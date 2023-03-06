@@ -4,9 +4,12 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
 import com.qaprosoft.carina.demo.web.krossby.Pages.CheckOutPage;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.QuickView;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.Objects;
 
 public class Shoe extends AbstractUIObject {
 
@@ -19,9 +22,8 @@ public class Shoe extends AbstractUIObject {
     @FindBy(xpath = ".//button[contains(@type, 'button')]")
     private ExtendedWebElement viewButton;
 
-    @FindBy(xpath = ".//div[contains(@class, 'col-sm-6 product-center clearfix')]")
+    @FindBy(xpath = "//div[contains(@class, 'col-sm-6 product-center clearfix')]")
     private QuickView quickView;
-
 
 
     public Shoe(WebDriver driver, SearchContext searchContext) {
@@ -33,8 +35,10 @@ public class Shoe extends AbstractUIObject {
     }
 
     public int getPrice() {
-        String first = getShoePrice().split(" ", 2)[0];
-        return Integer.parseInt(first);
+        String str = StringUtils.remove(getShoePrice(), "BYN");
+        str = StringUtils.remove(str, " ");
+        str = StringUtils.substringBefore(str, "\n");
+        return Integer.parseInt(str);
     }
 
     public String getShoeModel() {
@@ -46,7 +50,7 @@ public class Shoe extends AbstractUIObject {
     }
 
 
-    public QuickView getQuickView(){
+    public QuickView getQuickView() {
         shoeModel.hover();
         viewButton.click();
         return quickView;
@@ -64,4 +68,16 @@ public class Shoe extends AbstractUIObject {
         return quickView.buyWithSize();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Shoe shoe = (Shoe) o;
+        return Objects.equals(getShoeModel(), shoe.getShoeModel()) && Objects.equals(getShoePrice(), shoe.getShoePrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shoeModel, shoePrice);
+    }
 }

@@ -22,12 +22,13 @@ public class QuickView extends AbstractUIObject {
     }
 
     public CheckOutPage buyWithoutChoosingSize(){
+        cartButton.hover();
         cartButton.click();
         return new CheckOutPage(getDriver());
     }
 
     public void clickSize() {
-        radio.doubleClick(3);
+        radio.click();
     }
 
     public CheckOutPage buyWithSize() {

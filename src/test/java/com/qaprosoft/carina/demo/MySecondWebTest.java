@@ -3,6 +3,7 @@ package com.qaprosoft.carina.demo;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.demo.web.krossby.*;
 import com.qaprosoft.carina.demo.web.krossby.Pages.*;
+import com.qaprosoft.carina.demo.web.krossby.UIObjects.QuickView;
 import com.zebrunner.carina.utils.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.lang.invoke.MethodHandles;
+import java.util.Comparator;
 import java.util.List;
 
 public class MySecondWebTest implements IAbstractTest {
@@ -114,6 +116,29 @@ public class MySecondWebTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
+    @Test
+    public void testQuickViewOpens() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
+        Shoe shoe = shoes.get(0);
+        QuickView quickView = shoe.getQuickView();
+
+        Assert.assertTrue(quickView.isUIObjectPresent(), "QuickView is not opened");
+    }
+
 
     @Test
     public void testCartWithoutChoosingSize() {
@@ -139,7 +164,7 @@ public class MySecondWebTest implements IAbstractTest {
     }
 
     @Test
-    public void testValidCart() {
+    public void testCartWithSize() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
 
@@ -158,7 +183,7 @@ public class MySecondWebTest implements IAbstractTest {
         Shoe shoe = shoes.get(0);
         CheckOutPage checkOutPage = shoe.buyWithSize();
 
-        Assert.assertTrue(checkOutPage.isPageOpened(), "Checkout page is not opened!");
+        Assert.assertTrue(checkOutPage.isPageOpened(), "QuickView is not opened!");
     }
 
     @Test
@@ -227,10 +252,76 @@ public class MySecondWebTest implements IAbstractTest {
         List<Shoe> shoes = catalogPage.getShoes();
         for (Shoe shoe : shoes) {
             int shoePrice = shoe.getPrice();
+            LOGGER.info(shoe.toString());
             Assert.assertTrue(shoePrice >= minPrice && shoePrice <= maxPrice, "Shoe price is not correct after filter!");
         }
     }
 
 
+    @Test
+    public void testSortingAZ() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
 
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
+        Comparator<Shoe> comparatorAZ = new Comparator<Shoe>() {
+            @Override
+            public int compare(Shoe o1, Shoe o2) {
+                return (o1.getShoeModel().compareTo(o2.getShoeModel()));
+            }
+        };
+
+        catalogPage.sortAZ();
+
+        //Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorAZ), "A to Z name sort failed");
+
+        Comparator<Shoe> comparatorZA = new Comparator<Shoe>() {
+            @Override
+            public int compare(Shoe o1, Shoe o2) {
+                return o1.getShoeModel().compareTo(o2.getShoeModel());
+            }
+        };
+
+        catalogPage.sortZA();
+
+        //Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorZA), "Z to A name sort failed");
+
+        Comparator<Shoe> comparatorLH = new Comparator<Shoe>() {
+            @Override
+            public int compare(Shoe o1, Shoe o2) {
+                return Integer.compare(o1.getPrice(), o2.getPrice());
+            }
+        };
+
+        catalogPage.sortLH();
+
+        Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorLH), "Low to High price sort failed");
+
+        Comparator<Shoe> comparatorHL = new Comparator<Shoe>() {
+            @Override
+            public int compare(Shoe o1, Shoe o2) {
+                return Integer.compare(o2.getPrice(), o1.getPrice());
+            }
+        };
+
+        catalogPage.sortHL();
+
+        Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorHL), "High to Low price sort failed");
+
+    }
+
+
+
+    // java maven appium xcode
 }
