@@ -3,7 +3,7 @@ package com.qaprosoft.carina.demo.web.krossby.Pages;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.PageOpeningStrategy;
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.qaprosoft.carina.demo.web.krossby.Shoe;
+import com.qaprosoft.carina.demo.web.krossby.Models.Shoe;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Header;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Navigation;
 import org.openqa.selenium.WebDriver;

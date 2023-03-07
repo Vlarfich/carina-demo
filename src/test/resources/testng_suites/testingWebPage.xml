@@ -13,7 +13,8 @@
                     <include name="testRandomLogin"/>
                     <include name="testSalesPage"/>
                     <include name="testSearch"/>
-                    <include name="testSortingAZ"/>
+                    <include name="testSortHL"/>
+                    <include name="testSortLH"/>
                     <include name="testValidLogin"/>
                 </methods>
             </class>

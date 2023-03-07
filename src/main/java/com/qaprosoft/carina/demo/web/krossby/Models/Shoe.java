@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.demo.web.krossby;
+package com.qaprosoft.carina.demo.web.krossby.Models;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;

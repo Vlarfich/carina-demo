@@ -22,14 +22,14 @@ public class FilterOptions extends AbstractUIObject {
 
     public void inputMaxPrice(int max) {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(maxPrice.getElement()).doubleClick().sendKeys(Keys.BACK_SPACE).perform();
+        actions.moveToElement(maxPrice.getElement()).doubleClick().click().sendKeys(Keys.BACK_SPACE).perform();
         maxPrice.type("" + max);
         minPrice.click();
     }
 
     public void inputMinPrice(int min) {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(minPrice.getElement()).doubleClick().sendKeys(Keys.BACK_SPACE).perform();
+        actions.moveToElement(minPrice.getElement()).doubleClick().click().sendKeys(Keys.BACK_SPACE).perform();
         minPrice.type("" + min);
         maxPrice.click();
     }

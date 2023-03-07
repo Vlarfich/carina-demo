@@ -42,12 +42,11 @@ public class HomePage extends AbstractPage {
     }
 
     public void closePopUp() {
-        closePopUpButton.click();
+        closePopUpButton.clickIfPresent();
     }
 
     public CatalogPage clickCatalog() {
-        catalog.click();
-        return new CatalogPage(getDriver());
+        return navigation.goToCatalog();
     }
 
     public SearchPage goToSearchPage(String str) {

@@ -1,7 +1,9 @@
 package com.qaprosoft.carina.demo;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.qaprosoft.carina.demo.web.krossby.*;
+import com.qaprosoft.carina.demo.web.krossby.Models.Shoe;
+import com.qaprosoft.carina.demo.web.krossby.Models.User;
+import com.qaprosoft.carina.demo.web.krossby.Models.UserBuilder;
 import com.qaprosoft.carina.demo.web.krossby.Pages.*;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.QuickView;
 import com.zebrunner.carina.utils.R;
@@ -34,10 +36,13 @@ public class MySecondWebTest implements IAbstractTest {
 
         Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened!");
 
-        String user = (R.TESTDATA.get("username"));
+        String userName = (R.TESTDATA.get("username"));
         String pass = (R.TESTDATA.get("password"));
-        LOGGER.info("Trying to login user: " + user + " ,  with password: " + pass);
-        AccountPage accountPage = loginPage.login(user, pass);
+        LOGGER.info("Trying to login user: " + userName + " ,  with password: " + pass);
+
+        User user = new UserBuilder().username(userName).password(pass).build();
+
+        AccountPage accountPage = loginPage.login(user);
 
         Assert.assertTrue(accountPage.isPageOpened(), "Account page is not opened!");
     }
@@ -54,10 +59,13 @@ public class MySecondWebTest implements IAbstractTest {
 
         Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened!");
 
-        String user = (R.TESTDATA.get("randomuser"));
+        String userName = (R.TESTDATA.get("randomuser"));
         String pass = (R.TESTDATA.get("randompass"));
-        LOGGER.info("Trying to login user: " + user + " ,  with password: " + pass);
-        AccountPage accountPage = loginPage.login(user, pass);
+        LOGGER.info("Trying to login user: " + userName + " ,  with password: " + pass);
+
+        User user = new UserBuilder().username(userName).password(pass).build();
+
+        AccountPage accountPage = loginPage.login(user);
 
         Assert.assertFalse(accountPage.isPageOpened(2), "Random user + password passed authorization!");
     }
@@ -201,10 +209,16 @@ public class MySecondWebTest implements IAbstractTest {
         catalogPage.closePopUp();
         int maxPrice = R.TESTDATA.getInt("maxprice");
         catalogPage.inputMaxPrice(maxPrice);
+        catalogPage.pause(1);
 
         List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
         for (Shoe shoe : shoes) {
-            Assert.assertTrue(shoe.getPrice() <= maxPrice, "Shoe price is not correct after filter!");
+            int shoePrice = shoe.getPrice();
+            LOGGER.info("" + shoePrice);
+            Assert.assertTrue(shoePrice <= maxPrice, "Shoe price is not correct after filter!");
         }
     }
 
@@ -224,9 +238,14 @@ public class MySecondWebTest implements IAbstractTest {
         catalogPage.closePopUp();
         int minPrice = R.TESTDATA.getInt("minprice");
         catalogPage.inputMinPrice(minPrice);
+        catalogPage.pause(1);
 
         List<Shoe> shoes = catalogPage.getShoes();
-        for (Shoe shoe : shoes) {
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
+        for(Shoe shoe : shoes) {
+            LOGGER.info(shoe.getShoePrice());
             Assert.assertTrue(shoe.getPrice() >= minPrice, "Shoe price is not correct after filter!");
         }
     }
@@ -247,12 +266,17 @@ public class MySecondWebTest implements IAbstractTest {
         int minPrice = R.TESTDATA.getInt("minprice");
         int maxPrice = R.TESTDATA.getInt("maxprice");
         catalogPage.inputMinPrice(minPrice);
+        catalogPage.pause(1);
         catalogPage.inputMaxPrice(maxPrice);
+        catalogPage.pause(1);
 
         List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
         for (Shoe shoe : shoes) {
             int shoePrice = shoe.getPrice();
-            LOGGER.info(shoe.toString());
+            LOGGER.info("" + shoePrice);
             Assert.assertTrue(shoePrice >= minPrice && shoePrice <= maxPrice, "Shoe price is not correct after filter!");
         }
     }
@@ -297,6 +321,26 @@ public class MySecondWebTest implements IAbstractTest {
 
         //Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorZA), "Z to A name sort failed");
 
+    }
+
+
+    @Test
+    public void testSortLH() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
         Comparator<Shoe> comparatorLH = new Comparator<Shoe>() {
             @Override
             public int compare(Shoe o1, Shoe o2) {
@@ -307,6 +351,25 @@ public class MySecondWebTest implements IAbstractTest {
         catalogPage.sortLH();
 
         Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorLH), "Low to High price sort failed");
+
+    }
+
+    @Test
+    public void testSortHL() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
 
         Comparator<Shoe> comparatorHL = new Comparator<Shoe>() {
             @Override
@@ -319,9 +382,51 @@ public class MySecondWebTest implements IAbstractTest {
 
         Assert.assertTrue(catalogPage.checkIfSortedByComparator(comparatorHL), "High to Low price sort failed");
 
+
+    }
+
+    @Test
+    public void testCartNumberOfItems(){
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.closePopUp();
+        CatalogPage catalogPage = homePage.clickCatalog();
+
+        Assert.assertTrue(catalogPage.isPageOpened(), "Catalog page is not opened!");
+
+        catalogPage.closePopUp();
+        List<Shoe> shoes = catalogPage.getShoes();
+
+        Assert.assertFalse(shoes.isEmpty(), "No shoes found in catalog!");
+
+        int total = 0;
+
+        int cartElements = R.TESTDATA.getInt("cart_amount");
+
+        int shoePrice = shoes.get(2).getPrice();
+
+        SoftAssert softAssert = new SoftAssert();
+
+        for(int i = 0; i < cartElements; i++) {
+            Shoe shoe = shoes.get(2);
+            total += shoe.getPrice();
+            CheckOutPage checkOutPage = shoe.buyWithSize();
+            checkOutPage.pause(1);
+            //Assert.assertEquals(checkOutPage.getAmount(), i + 1, "Wrong amount of items in cart");
+            //Assert.assertEquals(checkOutPage.getTotal(), total + 1, "Wrong amount of items in cart");
+            //softAssert.assertEquals(checkOutPage.getTotal(), total + 1, "Wrong amount of items in cart");
+            CatalogPage catalogPage2 = checkOutPage.clickCatalog();
+            shoes = catalogPage2.getShoes();
+        }
+
+        Assert.assertTrue(total / cartElements == shoePrice, "wrog total price");
+        //Assert.assertTrue(checkOutPage.isPageOpened(), "QuickView is not opened!");
     }
 
 
-
+    // 24442
     // java maven appium xcode
 }

@@ -2,6 +2,7 @@ package com.qaprosoft.carina.demo.web.krossby.UIObjects;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.qaprosoft.carina.demo.web.krossby.Pages.CatalogPage;
 import com.qaprosoft.carina.demo.web.krossby.Pages.ManufacturerShoesPage;
 import com.qaprosoft.carina.demo.web.krossby.Pages.SalesPage;
 import org.openqa.selenium.By;
@@ -17,6 +18,9 @@ public class Navigation extends AbstractUIObject {
 
     @FindBy(xpath = "//span[contains(@data-hove, 'Производители')]")
     private ExtendedWebElement manufacturers;
+
+    @FindBy(xpath = "//span[contains(@data-hover, 'Каталог')]")
+    private ExtendedWebElement catalog;
 
     public Navigation(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
@@ -34,6 +38,11 @@ public class Navigation extends AbstractUIObject {
         manufacturers.hover();
 
         return new ManufacturerShoesPage(getDriver());
+    }
+
+    public CatalogPage goToCatalog() {
+        catalog.click();
+        return new CatalogPage(getDriver());
     }
 
 }

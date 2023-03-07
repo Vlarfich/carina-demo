@@ -3,6 +3,7 @@ package com.qaprosoft.carina.demo.web.krossby.Pages;
 import com.beust.ah.A;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.web.krossby.Models.User;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Header;
 import com.qaprosoft.carina.demo.web.krossby.UIObjects.Navigation;
 import org.openqa.selenium.WebDriver;
@@ -43,9 +44,9 @@ public class LoginPage extends AbstractPage {
         return new AccountPage(getDriver());
     }
 
-    public AccountPage login(String user, String pass){
-        inputLogin(user);
-        inputPassword(pass);
+    public AccountPage login(User user){
+        inputLogin(user.getUserName());
+        inputPassword(user.getPassword());
         return pressLogin();
     }
 }
