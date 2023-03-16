@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -22,7 +24,6 @@ import java.util.List;
 public class MySecondWebTest implements IAbstractTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
 
     @Test
     public void testValidLogin() {
@@ -46,6 +47,9 @@ public class MySecondWebTest implements IAbstractTest {
 
         Assert.assertTrue(accountPage.isPageOpened(), "Account page is not opened!");
     }
+
+
+
 
     @Test
     public void testRandomLogin() {
@@ -209,7 +213,6 @@ public class MySecondWebTest implements IAbstractTest {
         catalogPage.closePopUp();
         int maxPrice = R.TESTDATA.getInt("maxprice");
         catalogPage.inputMaxPrice(maxPrice);
-        catalogPage.pause(1);
 
         List<Shoe> shoes = catalogPage.getShoes();
 
@@ -238,7 +241,6 @@ public class MySecondWebTest implements IAbstractTest {
         catalogPage.closePopUp();
         int minPrice = R.TESTDATA.getInt("minprice");
         catalogPage.inputMinPrice(minPrice);
-        catalogPage.pause(1);
 
         List<Shoe> shoes = catalogPage.getShoes();
 
@@ -266,7 +268,6 @@ public class MySecondWebTest implements IAbstractTest {
         int minPrice = R.TESTDATA.getInt("minprice");
         int maxPrice = R.TESTDATA.getInt("maxprice");
         catalogPage.inputMinPrice(minPrice);
-        catalogPage.pause(1);
         catalogPage.inputMaxPrice(maxPrice);
         catalogPage.pause(1);
 
@@ -424,6 +425,7 @@ public class MySecondWebTest implements IAbstractTest {
 
         Assert.assertTrue(total / cartElements == shoePrice, "wrog total price");
         //Assert.assertTrue(checkOutPage.isPageOpened(), "QuickView is not opened!");
+        String string = "";
     }
 
 

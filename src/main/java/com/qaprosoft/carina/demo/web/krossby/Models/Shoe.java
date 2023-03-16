@@ -9,6 +9,7 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Shoe extends AbstractUIObject {

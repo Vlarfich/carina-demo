@@ -18,6 +18,7 @@ package com.qaprosoft.carina.demo;
 import com.zebrunner.agent.core.annotation.TestLabel;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
@@ -75,6 +76,7 @@ public class MobileSampleTest implements IAbstractTest, IMobileUtils {
                 "Error message or captcha was not displayed");
     }
 
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestLabel(name = "feature", value = {"mobile", "acceptance"})
@@ -100,5 +102,6 @@ public class MobileSampleTest implements IAbstractTest, IMobileUtils {
         uiElements.clickOnOtherRadioButton();
         Assert.assertTrue(uiElements.isOthersRadioButtonSelected(), "Others radio button was not selected!");
     }
+
 
 }
