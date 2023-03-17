@@ -1,7 +1,9 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.LibertyWelcomePageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -25,9 +27,9 @@ public class LibertyWelcomePage extends LibertyWelcomePageBase {
     }
 
     @Override
-    public LoginPage clickNextBtn() {
+    public LoginPageBase clickNextBtn() {
         addAccount.click();
-        return initPage(getDriver(), LoginPage.class);
+        return initPage(getDriver(), LoginPageBase.class);
     }
 
 }

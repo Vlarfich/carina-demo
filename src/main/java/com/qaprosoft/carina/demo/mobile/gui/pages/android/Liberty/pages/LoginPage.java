@@ -1,7 +1,8 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.demo.mobile.gui.pages.common.CarinaDescriptionPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.AccountChoosingPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -21,8 +22,9 @@ public class LoginPage extends LoginPageBase {
 
    
     @Override
-    public CarinaDescriptionPageBase login() {
-        return null;
+    public AccountChoosingPageBase clickAddAccountButton() {
+        addGoogle.clickIfPresent();
+        return initPage(getDriver(), AccountChoosingPageBase.class);
     }
 
     @Override

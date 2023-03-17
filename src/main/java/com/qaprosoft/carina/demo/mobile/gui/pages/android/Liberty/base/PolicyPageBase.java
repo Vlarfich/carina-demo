@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
@@ -8,5 +8,6 @@ public abstract class PolicyPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract void allow();
+    public abstract AddAnotherAccountPageBase allow();
+
 }
