@@ -1,15 +1,15 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.pages;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.LibertyWelcomePageBase;
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.LoginPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.base.WelcomePageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.base.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = LibertyWelcomePageBase.class)
-public class LibertyWelcomePage extends LibertyWelcomePageBase {
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = WelcomePageBase.class)
+public class WelcomePage extends WelcomePageBase {
 
     @FindBy(id = "layout_container")
     private ExtendedWebElement title;
@@ -17,7 +17,7 @@ public class LibertyWelcomePage extends LibertyWelcomePageBase {
     @FindBy(id = "btn_primary_button")
     private ExtendedWebElement addAccount;
 
-    public LibertyWelcomePage(WebDriver driver) {
+    public WelcomePage(WebDriver driver) {
         super(driver);
     }
 

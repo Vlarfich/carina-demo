@@ -1,7 +1,7 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.pages;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.SideBarPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.base.SideBarPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +19,11 @@ public class SideBarPage extends SideBarPageBase {
     @Override
     public boolean isPageOpened() {
         return summary.isElementPresent();
+    }
+
+
+    public String getEmailName() {
+        return summary.getText();
     }
 
 }

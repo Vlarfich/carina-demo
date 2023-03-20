@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.base;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
@@ -9,5 +9,9 @@ public abstract class MailPageBase extends AbstractPage {
     }
 
     public abstract SideBarPageBase openSideBar();
+
+    public abstract CalendarPageBase openCalendar();
+
+    public abstract FeedPageBase openFeed();
 
 }

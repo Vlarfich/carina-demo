@@ -1,8 +1,8 @@
-package com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.pages;
+package com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.AddAnotherAccountPageBase;
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.Liberty.base.MailPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.base.AddAnotherAccountPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.android.outlook.base.MailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
